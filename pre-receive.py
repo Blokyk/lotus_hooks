@@ -10,6 +10,8 @@ from test_commit import init, test_commit
 
 options = parse_options()
 
+dev_dir = "/home/blokyk/docs/dev/git_hooks/parsex_hooks"
+
 if "help" in options:
     display_help()
     sys.exit(1)
@@ -21,7 +23,7 @@ if "bypass_all" in options:
 
 # Backup the current
 
-if (bundle_result := run("git bundle create ../.artifacts/.backup/parsex/parsex_" + run("date +'%H-%M-%S_%y-%m-%d'").output +" --all")).retcode != 0:
+if (bundle_result := run(f"git bundle create {dev_dir}/../.artifacts/.backup/parsex/parsex_" + run("date +'%H-%M-%S_%y-%m-%d'").output +" --all")).retcode != 0:
     dim_warn(f"Could not create repo backup (retcode = {bundle_result.retcode})")
     dim(bundle_result.output)
 
@@ -69,7 +71,7 @@ else:
         else:
             print("\t-", fmt_commit(commit))
 
-init("./", branch, "../.artifacts/")
+init("./", branch, f"{dev_dir}/../.artifacts/")
 
 for commit in commit_list:
     # TODO: We have to add global options but overwrite those specified in the per-commit options

@@ -126,7 +126,7 @@ def graph_test(commit: str, prev_ref: str, bypass_visual: bool, no_visual: bool,
 
     if bypass_visual:
         print("\t",fmt_warn("BYPASSED"))
-        print("\t[yellow]Option '[bold]bypass_visual[/]' specified, so accepting despite hash mismatch")
+        print("\t[yellow]Option '[bold]bypass_visual[/]' specified, so accepting despite visual mismatch")
         #TODO: cleanup
         return True
 
@@ -160,10 +160,10 @@ def graph_test(commit: str, prev_ref: str, bypass_visual: bool, no_visual: bool,
             write(indent(diff_result.output, 2))
             return False
 
-        print("\t",fmt_failed("DIFFERENT"))
+        print("\t", fmt_failed("DIFFERENT"))
 
-        error("Graphs visually differed !")
-        error("[not bold]Expected [yellow]"
+        print("[italic red]Graphs visually differed !")
+        print("[italic red]Expected [yellow]"
             + run(["sha1sum", "-b", prev_path + ".png"]).output[0:7]
             + "[/], got [yellow]"
             + run(["sha1sum", "-b", new_path + ".png"]).output[0:7]
