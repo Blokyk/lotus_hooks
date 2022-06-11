@@ -35,7 +35,7 @@ def generic_test(commit: str, options: GitOptions) -> bool:
 
     silent_output = parsex("silent")
 
-    if (silent_output.retcode != 0):
+    if (silent_output.retcode != 0 and not silent_output.output): # not output => output.is_empty()
         print("\t\t",fmt_failed())
         print("\t\t[bold][red]Error running the 'silent' option :")
         write(indent(silent_output.output, 3))
